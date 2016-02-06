@@ -32,7 +32,7 @@ public class Reversi extends JFrame {
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		setResizable(true);
 		
 		
 		pack();
