@@ -10,12 +10,13 @@ import static java.awt.BorderLayout.SOUTH;
 
 @SuppressWarnings("serial")
 public class Reversi extends JFrame {
+	private Referee ref;
 	public Reversi() {
 		super("Reversi");
 		
 		InfoPanel ip = new InfoPanel();
 		
-		Referee ref = new Referee();
+		ref = new Referee();
 		ref.initializeGame();
 		ref.addStatusObserver((Observer)ip);
 		
@@ -28,8 +29,6 @@ public class Reversi extends JFrame {
 		add(SOUTH,panel);
 		
 		
-		
-		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);
@@ -37,6 +36,10 @@ public class Reversi extends JFrame {
 		
 		pack();
 		setLocation(500,300);
+	}
+	
+	public Referee getReferee() {
+		return ref;
 	}
 	
 	public static void main(String[] args) {
