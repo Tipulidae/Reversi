@@ -26,7 +26,7 @@ public class MinimaxAI extends Synth {
 	
 	@Override
 	public Position makeMove() {
-		maxDepth = 3;
+		maxDepth = 6;
 		Position bestMove = null;
 		int bestScore = 0;
 		for (Position p : rules.allValidMoves(board, color)) {

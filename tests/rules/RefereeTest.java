@@ -73,10 +73,35 @@ public class RefereeTest {
 		assertFalse(ref.makeMove(invalidMove5));
 	}
 	
-	// Sequence of moves resulting in premature black win:
-	// [c4, c5, c6, b5, e6, c3, c2, d3, a4, c7, c8, f5, g6]
-	// Sequence of moves resulting in premature white win:
-	// [c4, c3, d3, c5, b2, a1, b4, e3, c2, c1, d2, a3, c6, c7, f4, g5]
+	
+	// Sequence of moves where the entire board ends up being black:
+	// [c4, c3, c2, b2, e6, c1, a1, a3, c5, b3, e3, b1, a4, a2, d6, a5, e7, d1, b4, f7, c6, d3, g8, b5, d2, d7, b6, c7, b7, c8, a7, d8, b8, a8, a6, f5, f4, g3, g5, e8, h2, h5, f6, f3, f2, g1, h6, g6, f1, e1, f8, h4, h3, h8, h7, g7, h1, g4, e2, g2]
+	
+	@Test
+	public void newGameIsNotOver() {
+		assertFalse(ref.gameOver());
+	}
+	
+	@Test
+	public void gameEndsWhenNoValidMovesLeft() {
+		// Sequence of moves resulting in premature black win
+		String[] moves = {"c4", "c5", "c6", "b5", "e6", "c3", "c2", "d3", "a4", "c7", "c8", "f5", "g6"};
+		
+		for (String str : moves) {
+			assertTrue(ref.makeMove(new Position(str)));
+		}
+		assertTrue(ref.gameOver());
+	}
+	
+	@Test
+	public void gameEndsWhenNoValidMovesLeft2() {
+		// Sequence of moves resulting in premature white win
+		String[] moves = {"c4", "c3", "d3", "c5", "b2", "a1", "b4", "e3", "c2", "c1", "d2", "a3", "c6", "c7", "f4", "g5"};
+		for (String str : moves) {
+			assertTrue(ref.makeMove(new Position(str)));
+		}
+		assertTrue(ref.gameOver());
+	}
 	
 	private void assertBlack(Position pos) {
 		assertEquals(Player.BLACK, board.colorAt(pos));

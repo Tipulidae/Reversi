@@ -12,8 +12,8 @@ public class Main {
 		Board board = ref.currentBoardState();
 		RuleBook rules = ref.getRules();
 		
-		Synth blackSynth = new GreedyAI(Player.BLACK, board, rules);
-		Synth whiteSynth = new MinimaxAI(Player.WHITE, board, rules);
+		Synth blackSynth = new MinimaxAI(Player.BLACK, board, rules);
+		Synth whiteSynth = new RandomAI(Player.WHITE, board, rules);
 		
 		ArrayList<Position> history = new ArrayList<Position>();
 		

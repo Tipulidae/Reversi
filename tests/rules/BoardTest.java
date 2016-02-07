@@ -65,14 +65,4 @@ public class BoardTest {
 		boardB.placeWhite(new Position("d7"));
 		assertNotEquals(boardA, boardB);
 	}
-	/*
-	private Board result(Board state, Position pos, Player color) {
-		MutableBoard nextState = new MutableBoard(state);
-		nextState.placeDisk(pos, color);
-		
-		for (Position capture : rules.captures(nextState, pos, color)) {
-			nextState.flip(capture);
-		}
-		return nextState;
-	}*/
 }
