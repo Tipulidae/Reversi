@@ -1,5 +1,6 @@
 package rules;
 
+import java.util.ArrayList;
 import java.util.Observer;
 
 public class MutableBoard implements Board {
@@ -14,11 +15,16 @@ public class MutableBoard implements Board {
 		}
 	}
 	
+	public MutableBoard(Board b) {
+		disks = new Disk[8][8];
+		for (Position p : allDiskPositions()) {
+			disks[p.x][p.y] = new Disk(b.colorAt(p));
+		}
+	}
+	
 	public void setStartPositions() {
-		for (int x = 0; x<8; x++) {
-			for (int y=0; y<8; y++) {
-				disks[x][y].reset();
-			}
+		for (Position p : allDiskPositions()) {
+			diskAt(p).reset();
 		}
 		disks[3][3].turnWhite();
 		disks[4][4].turnWhite();
@@ -29,12 +35,12 @@ public class MutableBoard implements Board {
 	public Score currentScore() {
 		int black = 0;
 		int white = 0;
-		for (int x = 0; x<8; x++) {
-			for (int y=0; y<8; y++) {
-				if (disks[x][y].getColor() == Player.BLACK) black++;
-				else if (disks[x][y].getColor() == Player.WHITE) white++;
-			}
+		
+		for (Position p : allDiskPositions()) {
+			if (colorAt(p) == Player.BLACK) black++;
+			else if (colorAt(p) == Player.WHITE) white++;
 		}
+		
 		return new Score(black,white);
 	}
 	
@@ -71,5 +77,31 @@ public class MutableBoard implements Board {
 	@Override
 	public boolean isFree(Position p) {
 		return colorAt(p) == Player.NONE;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Board) {
+			Board b = (Board)o;
+			for (Position p : allDiskPositions()) {
+				Player expected = colorAt(p);
+				Player actual = b.colorAt(p);
+				if (!expected.equals(actual)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	private Iterable<Position> allDiskPositions() {
+		ArrayList<Position> positions = new ArrayList<Position>();
+		for (int x = 0; x<8; x++) {
+			for (int y=0; y<8; y++) {
+				positions.add(new Position(x,y));
+			}
+		}
+		return positions;
 	}
 }

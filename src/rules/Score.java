@@ -8,4 +8,15 @@ public class Score {
 		this.black = black;
 		this.white = white;
 	}
+	
+	public int score(Player color) {
+		switch (color) {
+		case BLACK:
+			return black;
+		case WHITE:
+			return white;
+		default:
+			return 0;
+		}
+	}
 }

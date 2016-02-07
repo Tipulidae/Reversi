@@ -13,7 +13,7 @@ public class Main {
 		RuleBook rules = ref.getRules();
 		
 		Synth blackSynth = new GreedyAI(Player.BLACK, board, rules);
-		Synth whiteSynth = new RandomAI(Player.WHITE, board, rules);
+		Synth whiteSynth = new MinimaxAI(Player.WHITE, board, rules);
 		
 		ArrayList<Position> history = new ArrayList<Position>();
 		
@@ -27,13 +27,13 @@ public class Main {
 			if (ref.currentPlayer() == Player.BLACK) {
 				Position move = blackSynth.makeMove();
 				if (ref.makeMove(move)) {
-					System.out.println("Black "+move);
+					System.out.println(blackSynth+": "+move);
 					history.add(move);
 				}
 			} else {
 				Position move = whiteSynth.makeMove();
 				if (ref.makeMove(move)) {
-					System.out.println("White "+move);
+					System.out.println(whiteSynth+": "+move);
 					history.add(move);
 				}
 			}

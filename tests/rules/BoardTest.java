@@ -30,5 +30,49 @@ public class BoardTest {
 		b.placeBlack(new Position(0,0));
 		assertTrue(b.diskAt(new Position(0,0)).isBlack());
 	}
-
+	
+	@Test
+	public void boardsWithSameSetupAreEqual() {
+		MutableBoard boardA = new MutableBoard();
+		MutableBoard boardB = new MutableBoard();
+		assertEquals(boardA, boardB);
+		
+		boardA.setStartPositions();
+		boardB.setStartPositions();
+		assertEquals(boardA,boardB);
+		
+		boardA.placeBlack(new Position("a1"));
+		assertNotEquals(boardA,boardB);
+		
+		boardB.placeBlack(new Position("a1"));
+		assertEquals(boardA,boardB);
+	}
+	
+	
+	@Test
+	public void mutableBoardConstructorCopiesInputBoard() {
+		MutableBoard boardA = new MutableBoard();
+		boardA.setStartPositions();
+		
+		MutableBoard boardB = new MutableBoard(boardA);
+		
+		assertEquals(boardA, boardB);
+		
+		boardA.placeBlack(new Position("c3"));
+		assertNotEquals(boardA, boardB);
+		
+		boardB.placeBlack(new Position("c3"));
+		boardB.placeWhite(new Position("d7"));
+		assertNotEquals(boardA, boardB);
+	}
+	/*
+	private Board result(Board state, Position pos, Player color) {
+		MutableBoard nextState = new MutableBoard(state);
+		nextState.placeDisk(pos, color);
+		
+		for (Position capture : rules.captures(nextState, pos, color)) {
+			nextState.flip(capture);
+		}
+		return nextState;
+	}*/
 }

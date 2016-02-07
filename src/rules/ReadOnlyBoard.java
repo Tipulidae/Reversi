@@ -27,4 +27,14 @@ public class ReadOnlyBoard implements Board {
 	public void addDiskObserver(Observer o, Position pos) {
 		delegate.addDiskObserver(o,pos);
 	}
+
+	@Override
+	public Score currentScore() {
+		return delegate.currentScore();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return delegate.equals(o);
+	}
 }

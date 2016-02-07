@@ -3,7 +3,15 @@ package rules;
 import java.util.Observable;
 
 public class Disk extends Observable {
-	private Player color = Player.NONE;
+	private Player color;
+	
+	public Disk() {
+		color = Player.NONE;
+	}
+	
+	public Disk(Player color) {
+		this.color = color;
+	}
 	
 	public void setColor(Player color) {
 		this.color = color;

@@ -73,6 +73,11 @@ public class RefereeTest {
 		assertFalse(ref.makeMove(invalidMove5));
 	}
 	
+	// Sequence of moves resulting in premature black win:
+	// [c4, c5, c6, b5, e6, c3, c2, d3, a4, c7, c8, f5, g6]
+	// Sequence of moves resulting in premature white win:
+	// [c4, c3, d3, c5, b2, a1, b4, e3, c2, c1, d2, a3, c6, c7, f4, g5]
+	
 	private void assertBlack(Position pos) {
 		assertEquals(Player.BLACK, board.colorAt(pos));
 	}
@@ -80,4 +85,6 @@ public class RefereeTest {
 	private void assertWhite(Position pos) {
 		assertEquals(Player.WHITE, board.colorAt(pos));
 	}
+	
+	
 }
