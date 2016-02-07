@@ -2,12 +2,13 @@ package rules;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class RuleBook {
 	private Player activePlayer;
 	private Board board;
 	
-	public Iterable<Position> captures(Board board, Position move, Player activePlayer) {
+	public List<Position> captures(Board board, Position move, Player activePlayer) {
 		this.board = board;
 		this.activePlayer = activePlayer;
 		Player otherPlayer = Player.opposite(activePlayer);

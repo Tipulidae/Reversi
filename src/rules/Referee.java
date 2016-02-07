@@ -11,9 +11,9 @@ public class Referee {
 	private Collection<Position> validMoves;
 	private Status status;
 	
-	private int numberOfPlayersWithNoMoves = 0;
+	private int numberOfPlayersWithNoMoves;
 	
-	private boolean gameOver = false;
+	private boolean gameOver;
 	
 	public Referee() {
 		board = new MutableBoard();
@@ -25,6 +25,8 @@ public class Referee {
 		board.setStartPositions();
 		currentPlayer = Player.BLACK;
 		validMoves = rules.allValidMoves(board,currentPlayer);
+		numberOfPlayersWithNoMoves = 0;
+		gameOver = false;
 	}
 	
 	public void addStatusObserver(Observer o) {

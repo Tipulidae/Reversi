@@ -1,19 +1,40 @@
 package AI;
 
 import rules.Board;
+import rules.Player;
 import rules.Position;
 import rules.RuleBook;
 
-public class Synth {
-	private Board board;
-	private RuleBook rules;
-	public Synth(Board board, RuleBook rules) {
+public abstract class Synth {
+	protected Player color;
+	protected Board board;
+	protected RuleBook rules;
+	
+	public Synth() {
+	}
+	
+	public Synth(Player color, Board board, RuleBook rules) {
+		this.color = color;
 		this.board = board;
 		this.rules = rules;
 	}
 	
-	public Position makeMove() {
+	public void giveColor(Player color) {
+		this.color = color;
+	}
+
+	public void giveBoard(Board board) {
+		this.board = board;
 		
-		return new Position(0,0);
+	}
+	
+	public void giveRules(RuleBook rules) {
+		this.rules = rules;
+	}
+	
+	public abstract Position makeMove();
+	
+	public String toString() {
+		return "["+color+"]";
 	}
 }
