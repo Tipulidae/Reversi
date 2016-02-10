@@ -21,9 +21,9 @@ public class DiskIcon {
 			//white = new ImageIcon(ImageIO.read(this.getClass().getResource("/kek/white.png")));
 			//none = new ImageIcon(ImageIO.read(this.getClass().getResource("/kek/none.png")));
 			
-			black = new ImageIcon((this.getClass().getResource("/kek/black.png")));
-			white = new ImageIcon((this.getClass().getResource("/kek/white.png")));
-			none = new ImageIcon((this.getClass().getResource("/kek/none.png")));
+			black = new ImageIcon((this.getClass().getResource("/images/black.png")));
+			white = new ImageIcon((this.getClass().getResource("/images/white.png")));
+			none = new ImageIcon((this.getClass().getResource("/images/none.png")));
 		}
 		catch (Exception e) {
 		}
