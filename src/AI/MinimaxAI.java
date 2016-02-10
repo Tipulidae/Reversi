@@ -29,6 +29,7 @@ public class MinimaxAI extends Synth {
 	
 	@Override
 	public Position makeMove() {
+		currentMaxDepth = 0;
 		while (currentMaxDepth < MAXDEPTH) {
 			currentMaxDepth++;
 			bestMove = IDS();
