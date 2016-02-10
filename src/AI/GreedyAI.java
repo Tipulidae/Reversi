@@ -16,7 +16,7 @@ public class GreedyAI extends Synth {
 	
 	
 	
-	public Position makeMove() {
+	public Position makeMove(long stopTime) {
 		return greedyMove();
 	}
 	

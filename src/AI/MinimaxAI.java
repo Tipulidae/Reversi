@@ -9,11 +9,14 @@ import rules.Position;
 import rules.RuleBook;
 
 public class MinimaxAI extends Synth {
-	private int currentDepth = 0;
-	private int currentMaxDepth = 0;
+	private int currentDepth;
+	private int currentMaxDepth;
 	private String name = "Minimax";
 	private Position bestMove;
-	public final int MAXDEPTH = 3;
+	public final int MAXDEPTH = 60;
+	
+	private long stopTime;
+	private boolean timeUp;
 	
 	public MinimaxAI() {
 		
@@ -28,11 +31,14 @@ public class MinimaxAI extends Synth {
 	}
 	
 	@Override
-	public Position makeMove() {
+	public Position makeMove(long stopTime) {
+		this.stopTime = stopTime;
 		currentMaxDepth = 0;
+		timeUp = false;
 		while (currentMaxDepth < MAXDEPTH) {
 			currentMaxDepth++;
-			bestMove = IDS();
+			Position someMove = IDS();
+			if (!timeUp) bestMove = someMove;
 		}
 		return bestMove;
 	}
@@ -105,7 +111,8 @@ public class MinimaxAI extends Synth {
 	
 	private boolean cutoffTest(Board state) {
 		boolean maxDepthReached = currentDepth >= currentMaxDepth;
-		return maxDepthReached || isGameOver(state);
+		timeUp = System.currentTimeMillis() >= stopTime;
+		return maxDepthReached || timeUp || isGameOver(state);
 	}
 	
 	private boolean isGameOver(Board state) {

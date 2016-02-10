@@ -15,8 +15,11 @@ public class SynthEvaluator {
 	private int rounds;
 	private int blackWins, whiteWins;
 	private int ties;
+	private long timeLimit;
 	
-	public SynthEvaluator(Synth black, Synth white) {
+	
+	public SynthEvaluator(Synth black, Synth white, long timeLimit) {
+		this.timeLimit = timeLimit;
 		this.black = black;
 		this.white = white;
 	}
@@ -57,9 +60,9 @@ public class SynthEvaluator {
 		ref.initializeGame();
 		while(!ref.gameOver()) {
 			if (ref.currentPlayer() == Player.BLACK) {
-				ref.makeMove(black.makeMove());
+				ref.makeMove(black.makeMove(System.currentTimeMillis() + timeLimit));
 			} else {
-				ref.makeMove(white.makeMove());
+				ref.makeMove(white.makeMove(System.currentTimeMillis() + timeLimit));
 			}
 		}
 	}
@@ -88,9 +91,8 @@ public class SynthEvaluator {
 	
 	public static void main(String[] args) {
 		Synth black = new RandomAI();
-		Synth white = new MinimaxAI();
-		SynthEvaluator se = new SynthEvaluator(black, white);
+		Synth white = new GreedyAI();
+		SynthEvaluator se = new SynthEvaluator(black, white, 1);
 		se.runEvaluation(100);
 	}
-	
 }

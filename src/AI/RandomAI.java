@@ -17,7 +17,7 @@ public class RandomAI extends Synth {
 		super( color, board, rules);
 	}
 	
-	public Position makeMove() {
+	public Position makeMove(long stopTime) {
 		return randomMove();
 	}
 	

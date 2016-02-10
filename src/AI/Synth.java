@@ -32,7 +32,7 @@ public abstract class Synth {
 		this.rules = rules;
 	}
 	
-	public abstract Position makeMove();
+	public abstract Position makeMove(long stopTime);
 	
 	public String toString() {
 		return "["+color+"]";
