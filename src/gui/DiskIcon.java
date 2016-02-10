@@ -17,9 +17,9 @@ public class DiskIcon {
 	
 	private DiskIcon() {
 		try {
-			black = new ImageIcon(ImageIO.read(new File("black.png")));
-			white = new ImageIcon(ImageIO.read(new File("white.png")));
-			none = new ImageIcon(ImageIO.read(new File("empty.png")));
+			black = new ImageIcon(ImageIO.read(new File("images/black.png")));
+			white = new ImageIcon(ImageIO.read(new File("images/white.png")));
+			none = new ImageIcon(ImageIO.read(new File("images/empty.png")));
 		}
 		catch (Exception e) {
 		}

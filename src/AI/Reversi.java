@@ -29,7 +29,12 @@ public class Reversi {
 				System.exit(1);
 			}
 		} else {
+			//SwingUtilities.invokeLater(new Runnable() {
 
+			//	@Override
+			//	public void run() {
+					
+			
 					ReversiGUI reversi = new ReversiGUI();
 					Referee ref = reversi.getReferee();
 					board = ref.currentBoardState();
@@ -43,7 +48,8 @@ public class Reversi {
 					blackSynth.giveColor(Player.BLACK);
 					whiteSynth.giveColor(Player.WHITE);
 					runGameLoop(ref);
-				
+			//	}
+			//});
 			
 		}
 	}
@@ -105,13 +111,8 @@ public class Reversi {
 	}
 	
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
 				new Reversi().run(args);
-			}
-		});
+	
 		
 	}
 }
