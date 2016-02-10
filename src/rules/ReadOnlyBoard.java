@@ -37,4 +37,9 @@ public class ReadOnlyBoard implements Board {
 	public boolean equals(Object o) {
 		return delegate.equals(o);
 	}
+
+	@Override
+	public Score weightedScore() {
+		return delegate.weightedScore();
+	}
 }

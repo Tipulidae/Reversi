@@ -9,9 +9,9 @@ import static java.awt.BorderLayout.NORTH;
 import static java.awt.BorderLayout.SOUTH;
 
 @SuppressWarnings("serial")
-public class Reversi extends JFrame {
+public class ReversiGUI extends JFrame {
 	private Referee ref;
-	public Reversi() {
+	public ReversiGUI() {
 		super("Reversi");
 		
 		InfoPanel ip = new InfoPanel();
@@ -47,7 +47,7 @@ public class Reversi extends JFrame {
 
 			@Override
 			public void run() {
-				new Reversi();
+				new ReversiGUI();
 			}
 		});
 	}

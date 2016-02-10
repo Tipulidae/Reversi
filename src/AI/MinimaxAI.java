@@ -35,11 +35,14 @@ public class MinimaxAI extends Synth {
 		this.stopTime = stopTime;
 		currentMaxDepth = 0;
 		timeUp = false;
-		while (currentMaxDepth < MAXDEPTH) {
+		bestMove = null;
+		while (currentMaxDepth < MAXDEPTH && !timeUp) {
 			currentMaxDepth++;
 			Position someMove = IDS();
-			if (!timeUp) bestMove = someMove;
+			
+			if (!timeUp || bestMove == null) bestMove = someMove;
 		}
+		System.out.println(name+" depth reached: "+currentMaxDepth);
 		return bestMove;
 	}
 	

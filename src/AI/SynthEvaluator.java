@@ -51,6 +51,7 @@ public class SynthEvaluator {
 	
 	private void simulateGames() {
 		for (int i=0; i<rounds; i++) {
+			if (i%10 == 0) System.out.print("*");
 			simulateOneGame();
 			countScore();
 		}
@@ -60,9 +61,11 @@ public class SynthEvaluator {
 		ref.initializeGame();
 		while(!ref.gameOver()) {
 			if (ref.currentPlayer() == Player.BLACK) {
-				ref.makeMove(black.makeMove(System.currentTimeMillis() + timeLimit));
+				if (!ref.makeMove(black.makeMove(System.currentTimeMillis() + timeLimit)))
+					System.err.println("invalid move!");
 			} else {
-				ref.makeMove(white.makeMove(System.currentTimeMillis() + timeLimit));
+				if (!ref.makeMove(white.makeMove(System.currentTimeMillis() + timeLimit)))
+					System.err.println("invalid move!");
 			}
 		}
 	}
@@ -82,7 +85,7 @@ public class SynthEvaluator {
 		double blackPercentage = (double)blackWins*100 / rounds;
 		double whitePercentage = (double)whiteWins*100 / rounds;
 		double tiesPercentage = (double)ties*100 / rounds;
-		
+		System.out.println();
 		System.out.println(black+" won "+blackWins+"/"+rounds+" = "+blackPercentage+"% of the games.");
 		System.out.println(white+" won "+whiteWins+"/"+rounds+" = "+whitePercentage+"% of the games.");
 		System.out.println("There were "+ties+"/"+rounds+" = "+tiesPercentage+"% ties.");
@@ -90,9 +93,9 @@ public class SynthEvaluator {
 	
 	
 	public static void main(String[] args) {
-		Synth black = new GreedyAI();
+		Synth black = new AlphaBetaAI();
 		Synth white = new MinimaxAI();
-		SynthEvaluator se = new SynthEvaluator(black, white, 1);
-		se.runEvaluation(100);
+		SynthEvaluator se = new SynthEvaluator(black, white, 10);
+		se.runEvaluation(1);	
 	}
 }

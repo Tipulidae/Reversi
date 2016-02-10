@@ -44,6 +44,27 @@ public class MutableBoard implements Board {
 		return new Score(black,white);
 	}
 	
+	public Score weightedScore() {
+		int black = 0;
+		int white = 0;
+		int cornerWeight = 30;
+		int edgeWeight = 2;
+		for (Position p : allDiskPositions()) {
+			int score = 1;
+			if (isCorner(p)) score += cornerWeight;
+			else if (isEdge(p)) score += edgeWeight;
+			
+			if (colorAt(p) == Player.BLACK) {
+				black += score;
+			}
+			else if (colorAt(p) == Player.WHITE) {
+				white += score;
+			}
+		}
+		return new Score(black,white);
+		
+	}
+	
 	public void addDiskObserver(Observer o, Position pos) {
 		disks[pos.x][pos.y].addObserver(o);
 	}
@@ -103,5 +124,16 @@ public class MutableBoard implements Board {
 			}
 		}
 		return positions;
+	}
+	
+	private boolean isEdge(Position p) {
+		return (p.x == 0 || p.x == 7 || p.y == 0 || p.y == 7);
+	}
+	
+	private boolean isCorner(Position p) {
+		return (p.x == 0 && p.y == 7) || 
+			   (p.x == 7 && p.y == 0) ||
+			   (p.x == 7 && p.y == 7) ||
+			   (p.x == 0 && p.y == 0);
 	}
 }

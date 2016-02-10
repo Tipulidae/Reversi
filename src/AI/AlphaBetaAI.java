@@ -11,7 +11,7 @@ import rules.RuleBook;
 public class AlphaBetaAI extends Synth {
 	private int currentDepth;
 	private int currentMaxDepth;
-	private String name = "Alphabeta";
+	private String name = "AlphaBeta";
 	private Position bestMove;
 	public final int MAXDEPTH = 60;
 	
@@ -35,11 +35,13 @@ public class AlphaBetaAI extends Synth {
 		this.stopTime = stopTime;
 		currentMaxDepth = 0;
 		timeUp = false;
-		while (currentMaxDepth < MAXDEPTH) {
+		bestMove = null;
+		while (currentMaxDepth < MAXDEPTH && !timeUp) {
 			currentMaxDepth++;
 			Position someMove = alphaBeta();
-			if (!timeUp) bestMove = someMove;
+			if (!timeUp || bestMove == null) bestMove = someMove;
 		}
+		System.out.println(name+" depth reached: "+currentMaxDepth);
 		return bestMove;
 	}
 	
@@ -50,7 +52,6 @@ public class AlphaBetaAI extends Synth {
 		Position bestMove = null;
 		int bestScore = 0;
 		for (Position p : rules.allValidMoves(board, color)) {
-			
 			Board state = result(board, p, color);
 			currentDepth = 0;
 			int score = minValue(state, Integer.MIN_VALUE, Integer.MAX_VALUE);
@@ -84,6 +85,7 @@ public class AlphaBetaAI extends Synth {
 		}
 		
 		int v = Integer.MAX_VALUE;
+		//validMoves.sort();
 		for (Position p : validMoves) {
 			Board nextState = result(b,p,Player.opposite(color));
 			v = Math.min(v,maxValue(nextState, alpha, beta));
@@ -135,6 +137,6 @@ public class AlphaBetaAI extends Synth {
 	}
 	
 	private int evaluationFunction(Board state) {
-		return state.currentScore().score(color);
+		return state.weightedScore().score(color);
 	}
 }

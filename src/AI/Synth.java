@@ -25,7 +25,6 @@ public abstract class Synth {
 
 	public void giveBoard(Board board) {
 		this.board = board;
-		
 	}
 	
 	public void giveRules(RuleBook rules) {
