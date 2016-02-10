@@ -45,6 +45,8 @@ public class BoardPanel extends JPanel {
 	}
 	
 	private void squareClicked(SquareLabel sl) {
-		ref.makeMove(sl.getPos());
+		Position pos = sl.getPos();
+		if (ref.makeMove(pos))
+			System.out.println("Human ["+board.colorAt(pos)+"]: "+pos);
 	}
 }

@@ -2,8 +2,6 @@ package AI;
 
 import java.util.ArrayList;
 
-import javax.swing.SwingUtilities;
-
 import gui.ReversiGUI;
 import rules.*;
 
@@ -13,14 +11,17 @@ public class Reversi {
 	private Synth blackSynth;
 	private Synth whiteSynth;
 	private long timeLimit;
+
 	public void run(String[] args) {
-		// Time limit, blackAI, whiteAI
-		// java -jar reversiAI.jar 2000 human alphabeta
-		
+		if (args.length < 3 || args.length > 4) {
+			System.err.println("Please enter 3 or 4 arguments.");
+			System.exit(1);
+		}
+
 		timeLimit = Integer.valueOf(args[0]);
 		blackSynth = parseSynthString(args[1]);
 		whiteSynth = parseSynthString(args[2]);
-		
+
 		if (args.length > 3) {
 			if (blackSynth != null && whiteSynth != null) {
 				new SynthEvaluator(blackSynth, whiteSynth, timeLimit).runEvaluation(Integer.valueOf(args[3]));
@@ -29,33 +30,25 @@ public class Reversi {
 				System.exit(1);
 			}
 		} else {
-			//SwingUtilities.invokeLater(new Runnable() {
 
-			//	@Override
-			//	public void run() {
-					
-			
-					ReversiGUI reversi = new ReversiGUI();
-					Referee ref = reversi.getReferee();
-					board = ref.currentBoardState();
-					rules = ref.getRules();
+			ReversiGUI reversi = new ReversiGUI();
+			Referee ref = reversi.getReferee();
+			board = ref.currentBoardState();
+			rules = ref.getRules();
 
-					
-					blackSynth.giveBoard(board);
-					whiteSynth.giveBoard(board);
-					blackSynth.giveRules(rules);
-					whiteSynth.giveRules(rules);
-					blackSynth.giveColor(Player.BLACK);
-					whiteSynth.giveColor(Player.WHITE);
-					runGameLoop(ref);
-			//	}
-			//});
-			
+			blackSynth.giveBoard(board);
+			blackSynth.giveRules(rules);
+			blackSynth.giveColor(Player.BLACK);
+			whiteSynth.giveBoard(board);
+			whiteSynth.giveRules(rules);
+			whiteSynth.giveColor(Player.WHITE);
+
+			runGameLoop(ref);
 		}
 	}
-	
+
 	private Synth parseSynthString(String str) {
-		Synth s = null;
+		Synth s = new Human();
 		switch (str.toLowerCase()) {
 		case "random":
 			s = new RandomAI();
@@ -83,7 +76,7 @@ public class Reversi {
 		long stopTime;
 		while (!ref.gameOver()) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
 			}
@@ -91,28 +84,34 @@ public class Reversi {
 			stopTime = System.currentTimeMillis() + timeLimit;
 
 			if (ref.currentPlayer() == Player.BLACK) {
-				if (blackSynth != null) {
-					Position move = blackSynth.makeMove(stopTime);
-					if (ref.makeMove(move)) {
-						System.out.println(blackSynth + ": " + move);
-						history.add(move);
-					}
+				Position move = blackSynth.makeMove(stopTime);
+				if (ref.makeMove(move)) {
+					System.out.println(blackSynth + ": " + move);
+					history.add(move);
 				}
 			} else {
-				if (whiteSynth != null) {
-					Position move = whiteSynth.makeMove(stopTime);
-					if (ref.makeMove(move)) {
-						System.out.println(whiteSynth + ": " + move);
-						history.add(move);
-					}
+				Position move = whiteSynth.makeMove(stopTime);
+				if (ref.makeMove(move)) {
+					System.out.println(whiteSynth + ": " + move);
+					history.add(move);
 				}
 			}
 		}
-	}
-	
-	public static void main(String[] args) {
-				new Reversi().run(args);
-	
+		Score s = ref.currentScore();
+		Synth winner = null;
+		if (s.black > s.white) winner = blackSynth;
+		else if (s.black < s.white) winner = whiteSynth;
 		
+		String result = "Game Over! ";
+		if (winner == null) result += "It's a draw!";
+		else result += winner.toString()+" wins!";
+		
+		System.out.println(result);
+		System.out.println("Move history:\n"+history);
+	}
+
+	public static void main(String[] args) {
+		new Reversi().run(args);
+
 	}
 }

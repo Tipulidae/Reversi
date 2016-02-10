@@ -27,7 +27,11 @@ public class InfoPanel extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		Status status = (Status)o;
 		if (status.gameOver()) {
-			turnLabel.setText("Game Over!");
+			String winner;
+			if (status.blackScore() > status.whiteScore()) winner = "BLACK WINS!";
+			else if (status.blackScore() < status.whiteScore()) winner = "WHITE WINS!";
+			else winner = "DRAW!";
+			turnLabel.setText(winner);
 		} else {
 			turnLabel.setText(status.currentPlayer()+" to move.");
 		}
