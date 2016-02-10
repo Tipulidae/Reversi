@@ -17,9 +17,13 @@ public class DiskIcon {
 	
 	private DiskIcon() {
 		try {
-			black = new ImageIcon(ImageIO.read(new File("images/black.png")));
-			white = new ImageIcon(ImageIO.read(new File("images/white.png")));
-			none = new ImageIcon(ImageIO.read(new File("images/empty.png")));
+			//black = new ImageIcon(ImageIO.read(this.getClass().getResource("/kek/black.png")));
+			//white = new ImageIcon(ImageIO.read(this.getClass().getResource("/kek/white.png")));
+			//none = new ImageIcon(ImageIO.read(this.getClass().getResource("/kek/none.png")));
+			
+			black = new ImageIcon((this.getClass().getResource("/kek/black.png")));
+			white = new ImageIcon((this.getClass().getResource("/kek/white.png")));
+			none = new ImageIcon((this.getClass().getResource("/kek/none.png")));
 		}
 		catch (Exception e) {
 		}
