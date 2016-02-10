@@ -9,9 +9,12 @@ import rules.Position;
 import rules.RuleBook;
 
 public class MinimaxAI extends Synth {
-	private int depth = 0;
-	private int maxDepth;
+	private int currentDepth = 0;
+	private int currentMaxDepth = 0;
 	private String name = "Minimax";
+	private Position bestMove;
+	public final int MAXDEPTH = 3;
+	
 	public MinimaxAI() {
 		
 	}
@@ -26,13 +29,20 @@ public class MinimaxAI extends Synth {
 	
 	@Override
 	public Position makeMove() {
-		maxDepth = 6;
+		while (currentMaxDepth < MAXDEPTH) {
+			currentMaxDepth++;
+			bestMove = IDS();
+		}
+		return bestMove;
+	}
+	
+	public Position IDS() {
 		Position bestMove = null;
 		int bestScore = 0;
 		for (Position p : rules.allValidMoves(board, color)) {
 			
 			Board state = result(board, p, color);
-			depth = 0;
+			currentDepth = 0;
 			int score = minValue(state);
 			if (score > bestScore) {
 				bestScore = score;
@@ -53,9 +63,9 @@ public class MinimaxAI extends Synth {
 	}
 	
 	private int minValue(Board b) {
-		depth++;
+		currentDepth++;
 		if (cutoffTest(b)) {
-			depth--;
+			currentDepth--;
 			return evaluationFunction(b);
 		}
 		Collection<Position> validMoves = rules.allValidMoves(b,Player.opposite(color));
@@ -68,14 +78,14 @@ public class MinimaxAI extends Synth {
 			Board nextState = result(b,p,Player.opposite(color));
 			v = Math.min(v,maxValue(nextState));
 		}
-		depth--;
+		currentDepth--;
 		return v;
 	}
 	
 	private int maxValue(Board b) {
-		depth++;
+		currentDepth++;
 		if (cutoffTest(b)) {
-			depth--;
+			currentDepth--;
 			return evaluationFunction(b);
 		}
 		Collection<Position> validMoves = rules.allValidMoves(b,color);
@@ -88,12 +98,12 @@ public class MinimaxAI extends Synth {
 			Board nextState = result(b,p,color);
 			v = Math.max(v,minValue(nextState));
 		}
-		depth--;
+		currentDepth--;
 		return v;
 	}
 	
 	private boolean cutoffTest(Board state) {
-		boolean maxDepthReached = depth >= maxDepth;
+		boolean maxDepthReached = currentDepth >= currentMaxDepth;
 		return maxDepthReached || isGameOver(state);
 	}
 	
