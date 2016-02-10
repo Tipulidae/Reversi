@@ -90,8 +90,8 @@ public class SynthEvaluator {
 	
 	
 	public static void main(String[] args) {
-		Synth black = new RandomAI();
-		Synth white = new GreedyAI();
+		Synth black = new GreedyAI();
+		Synth white = new MinimaxAI();
 		SynthEvaluator se = new SynthEvaluator(black, white, 1);
 		se.runEvaluation(100);
 	}

@@ -12,7 +12,7 @@ public class Main {
 		Board board = ref.currentBoardState();
 		RuleBook rules = ref.getRules();
 		
-		Synth blackSynth = new MinimaxAI(Player.BLACK, board, rules);
+		Synth blackSynth = new AlphaBetaAI(Player.BLACK, board, rules);
 		Synth whiteSynth = new RandomAI(Player.WHITE, board, rules);
 		
 		ArrayList<Position> history = new ArrayList<Position>();
