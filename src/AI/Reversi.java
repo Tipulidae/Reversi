@@ -70,7 +70,7 @@ public class Reversi {
 		case "alphabeta":
 			s = new AlphaBetaAI();
 			break;
-		case "alphabeta2":
+		case "alphabetaweighted":
 			s = new AlphaBetaWeightedAI();
 		case "human":
 			break;
