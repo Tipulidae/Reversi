@@ -62,6 +62,8 @@ public class Reversi {
 		case "alphabeta":
 			s = new AlphaBetaAI();
 			break;
+		case "alphabeta2":
+			s = new AlphaBetaWeightedAI();
 		case "human":
 			break;
 		default:

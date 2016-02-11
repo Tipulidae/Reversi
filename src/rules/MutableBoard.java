@@ -62,7 +62,6 @@ public class MutableBoard implements Board {
 			}
 		}
 		return new Score(black,white);
-		
 	}
 	
 	public void addDiskObserver(Observer o, Position pos) {

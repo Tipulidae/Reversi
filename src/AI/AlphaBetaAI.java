@@ -137,6 +137,6 @@ public class AlphaBetaAI extends Synth {
 	}
 	
 	private int evaluationFunction(Board state) {
-		return state.weightedScore().score(color);
+		return state.currentScore().score(color);
 	}
 }
