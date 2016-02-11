@@ -1,7 +1,11 @@
 package AI;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import rules.Board;
 import rules.Player;
+import rules.Position;
 import rules.Referee;
 import rules.RuleBook;
 import rules.Score;
@@ -15,12 +19,13 @@ public class SynthEvaluator {
 	private int blackWins, whiteWins;
 	private int ties;
 	private long timeLimit;
-	
+	private Set<String> history; 
 	
 	public SynthEvaluator(Synth black, Synth white, long timeLimit) {
 		this.black = black;
 		this.white = white;
 		this.timeLimit = timeLimit;
+		history = new HashSet<String>();
 	}
 	
 	public void runEvaluation(int rounds) {
@@ -58,15 +63,23 @@ public class SynthEvaluator {
 	
 	private void simulateOneGame() {
 		ref.initializeGame();
-		while(!ref.gameOver()) {
+		StringBuilder sb = new StringBuilder();
+		while (!ref.gameOver()) {
 			if (ref.currentPlayer() == Player.BLACK) {
-				if (!ref.makeMove(black.makeMove(System.currentTimeMillis() + timeLimit)))
-					System.err.println("invalid move!");
+				Position move = black.makeMove(System.currentTimeMillis() + timeLimit);
+				if (!ref.makeMove(move))
+					System.out.println("No valid moves.");
+				else
+					sb.append(move.toString());
 			} else {
-				if (!ref.makeMove(white.makeMove(System.currentTimeMillis() + timeLimit)))
-					System.err.println("invalid move!");
+				Position move = white.makeMove(System.currentTimeMillis() + timeLimit);
+				if (!ref.makeMove(move))
+					System.out.println("No valid moves.");
+				else
+					sb.append(move.toString());
 			}
 		}
+		history.add(sb.toString());
 	}
 	
 	private void countScore() {
@@ -84,16 +97,18 @@ public class SynthEvaluator {
 		double blackPercentage = (double)blackWins*100 / rounds;
 		double whitePercentage = (double)whiteWins*100 / rounds;
 		double tiesPercentage = (double)ties*100 / rounds;
+		
 		System.out.println();
 		System.out.println(black+" won "+blackWins+"/"+rounds+" = "+blackPercentage+"% of the games.");
 		System.out.println(white+" won "+whiteWins+"/"+rounds+" = "+whitePercentage+"% of the games.");
 		System.out.println("There were "+ties+"/"+rounds+" = "+tiesPercentage+"% ties.");
+		System.out.println(history.size()+"/"+rounds+" different games played.");
 	}
 	
 	public static void main(String[] args) {
 		Synth black = new AlphaBetaAI();
 		Synth white = new MinimaxAI();
-		SynthEvaluator se = new SynthEvaluator(black, white, 10);
-		se.runEvaluation(1);	
+		SynthEvaluator se = new SynthEvaluator(black, white, 20);
+		se.runEvaluation(10);
 	}
 }
