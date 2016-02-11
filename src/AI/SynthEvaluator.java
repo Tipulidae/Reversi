@@ -19,9 +19,9 @@ public class SynthEvaluator {
 	
 	
 	public SynthEvaluator(Synth black, Synth white, long timeLimit) {
-		this.timeLimit = timeLimit;
 		this.black = black;
 		this.white = white;
+		this.timeLimit = timeLimit;
 	}
 	
 	public void runEvaluation(int rounds) {
