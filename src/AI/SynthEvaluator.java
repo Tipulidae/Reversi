@@ -1,6 +1,5 @@
 package AI;
 
-
 import rules.Board;
 import rules.Player;
 import rules.Referee;
@@ -51,7 +50,7 @@ public class SynthEvaluator {
 	
 	private void simulateGames() {
 		for (int i=0; i<rounds; i++) {
-			if (i%10 == 0) System.out.print("*");
+//			if (i%10 == 0) System.out.print("*");
 			simulateOneGame();
 			countScore();
 		}
@@ -90,7 +89,6 @@ public class SynthEvaluator {
 		System.out.println(white+" won "+whiteWins+"/"+rounds+" = "+whitePercentage+"% of the games.");
 		System.out.println("There were "+ties+"/"+rounds+" = "+tiesPercentage+"% ties.");
 	}
-	
 	
 	public static void main(String[] args) {
 		Synth black = new AlphaBetaAI();

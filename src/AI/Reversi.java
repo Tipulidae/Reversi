@@ -14,7 +14,15 @@ public class Reversi {
 
 	public void run(String[] args) {
 		if (args.length < 3 || args.length > 4) {
-			System.err.println("Please enter 3 or 4 arguments.");
+			System.err.println("Syntax: java -jar reversi.jar timeLimit playerBlack playerWhite (rounds).");
+			System.err.println("");
+			System.err.println("timeLimit   is specified in milliseconds.");
+			System.err.println("");
+			System.err.println("playerBlack and playerWhite   respectively must be one of");
+			System.err.println("\"random\", \"greedy\", \"minimax\", \"alphabeta\", \"alphabetaweighted\" or \"human\".");
+			System.err.println("");
+			System.err.println("rounds   is optional and if specified makes the program run an evaluation");
+			System.err.println("between the types of playerBlack and playerWhite for the given number of rounds.");
 			System.exit(1);
 		}
 
