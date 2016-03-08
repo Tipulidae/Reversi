@@ -1,8 +1,5 @@
 package gui;
 
-import java.io.File;
-
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -12,25 +9,29 @@ public class DiskIcon {
 	private Icon black;
 	private Icon white;
 	private Icon none;
-	
+
 	private static DiskIcon instance;
-	
+
 	private DiskIcon() {
 		try {
 			black = new ImageIcon((this.getClass().getResource("/images/black.png")));
 			white = new ImageIcon((this.getClass().getResource("/images/white.png")));
-			none = new ImageIcon((this.getClass().getResource("/images/none.png")));
-		}
-		catch (Exception e) {
+			none = new ImageIcon((this.getClass().getResource("/images/empty.png")));
+		} catch (Exception e) {
+			System.err.println("unable to load images.");
+			e.printStackTrace();
+			System.exit(1);
 		}
 		instance = this;
 	}
-	
+
 	public static DiskIcon color() {
-		if (instance == null) return new DiskIcon();
-		else return instance;
+		if (instance == null)
+			return new DiskIcon();
+		else
+			return instance;
 	}
-	
+
 	public Icon getIcon(Player color) {
 		switch (color) {
 		case BLACK:
@@ -41,9 +42,9 @@ public class DiskIcon {
 			return none;
 		}
 	}
-	
+
 	public Icon getNullIcon() {
 		return none;
 	}
-	
+
 }

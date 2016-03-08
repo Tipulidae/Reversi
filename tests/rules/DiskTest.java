@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class DiskTest {
 	Disk d;
-	
+
 	@Before
 	public void setup() {
 		d = new Disk();
@@ -23,24 +23,22 @@ public class DiskTest {
 		d.turnWhite();
 		assertTrue(d.isWhite());
 	}
-	
+
 	@Test
 	public void diskCanTurnBlack() {
 		d.turnBlack();
 		assertTrue(d.isBlack());
 	}
-	
+
 	@Test
 	public void blackDiskIsNotWhite() {
 		d.turnBlack();
 		assertFalse(d.isWhite());
 	}
-	
+
 	@Test
 	public void whiteDiskIsNotBlack() {
 		d.turnWhite();
 		assertFalse(d.isBlack());
 	}
 }
-
-

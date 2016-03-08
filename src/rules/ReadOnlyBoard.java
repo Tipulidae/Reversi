@@ -10,10 +10,11 @@ import java.util.Observer;
 
 public class ReadOnlyBoard implements Board {
 	Board delegate;
+
 	public ReadOnlyBoard(Board mutableBoard) {
 		delegate = mutableBoard;
 	}
-	
+
 	public Player colorAt(Position m) {
 		return delegate.colorAt(m);
 	}
@@ -25,14 +26,14 @@ public class ReadOnlyBoard implements Board {
 
 	@Override
 	public void addDiskObserver(Observer o, Position pos) {
-		delegate.addDiskObserver(o,pos);
+		delegate.addDiskObserver(o, pos);
 	}
 
 	@Override
 	public Score currentScore() {
 		return delegate.currentScore();
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		return delegate.equals(o);

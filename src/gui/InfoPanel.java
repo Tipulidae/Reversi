@@ -13,10 +13,10 @@ import rules.Status;
 public class InfoPanel extends JPanel implements Observer {
 	private JLabel scoreLabel;
 	private JLabel turnLabel;
-	
+
 	public InfoPanel() {
 		super(new GridLayout(1, 2, 1, 1));
-		
+
 		scoreLabel = new JLabel("SCORE");
 		turnLabel = new JLabel("TURN");
 		add(turnLabel);
@@ -25,17 +25,20 @@ public class InfoPanel extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Status status = (Status)o;
+		Status status = (Status) o;
 		if (status.gameOver()) {
 			String winner;
-			if (status.blackScore() > status.whiteScore()) winner = "BLACK WINS!";
-			else if (status.blackScore() < status.whiteScore()) winner = "WHITE WINS!";
-			else winner = "DRAW!";
+			if (status.blackScore() > status.whiteScore())
+				winner = "BLACK WINS!";
+			else if (status.blackScore() < status.whiteScore())
+				winner = "WHITE WINS!";
+			else
+				winner = "DRAW!";
 			turnLabel.setText(winner);
 		} else {
-			turnLabel.setText(status.currentPlayer()+" to move.");
+			turnLabel.setText(status.currentPlayer() + " to move.");
 		}
-		scoreLabel.setText("SCORE: "+status.blackScore()+"-"+status.whiteScore());
-		
+		scoreLabel.setText("SCORE: " + status.blackScore() + "-" + status.whiteScore());
+
 	}
 }

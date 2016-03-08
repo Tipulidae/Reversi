@@ -1,4 +1,4 @@
-package AI;
+package ai;
 
 import rules.Board;
 import rules.Player;
@@ -9,16 +9,16 @@ public abstract class Synth {
 	protected Player color;
 	protected Board board;
 	protected RuleBook rules;
-	
+
 	public Synth() {
 	}
-	
+
 	public Synth(Player color, Board board, RuleBook rules) {
 		this.color = color;
 		this.board = board;
 		this.rules = rules;
 	}
-	
+
 	public void giveColor(Player color) {
 		this.color = color;
 	}
@@ -26,14 +26,18 @@ public abstract class Synth {
 	public void giveBoard(Board board) {
 		this.board = board;
 	}
-	
+
 	public void giveRules(RuleBook rules) {
 		this.rules = rules;
 	}
 	
+	public Player getColor() {
+		return color;
+	}
+
 	public abstract Position makeMove(long stopTime);
-	
+
 	public String toString() {
-		return "["+color+"]";
+		return "[" + color + "]";
 	}
 }

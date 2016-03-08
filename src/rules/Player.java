@@ -2,7 +2,7 @@ package rules;
 
 public enum Player {
 	NONE, BLACK, WHITE;
-	
+
 	public static Player opposite(Player c) {
 		switch (c) {
 		case BLACK:
@@ -13,7 +13,7 @@ public enum Player {
 			return NONE;
 		}
 	}
-	
+
 	public static String name(Player c) {
 		switch (c) {
 		case BLACK:
